@@ -8,13 +8,18 @@ function App() {
   const [notes, setNotes] = useState([]);
   const handleAddNote = (newNote) => setNotes([...notes, newNote]);
 
+  // deleting notes
+  const handleDeleteNote = (id) => {
+    setNotes(notes.filter((n) => n.id !== id));
+  };
+
   return (
     <div className="container">
       <div className="note-header"></div>
       <div className="note-app">
         <AddNewNote onAddNote={handleAddNote} />
         <div className="note-container">
-          <NoteList notes={notes} />
+          <NoteList notes={notes} onDelete={handleDeleteNote} />
         </div>
       </div>
     </div>
