@@ -20,7 +20,7 @@ function NoteItem({ note, onDelete }) {
   return (
     <div className="note-item">
       <div className="note-item__header">
-        <div>
+        <div className="note_item__details">
           <div className="title">{note.title}</div>
           <div className="desc">{note.description}</div>
         </div>

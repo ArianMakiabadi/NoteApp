@@ -64,6 +64,13 @@
   border-bottom: 1px solid var(--text-100);
 }
 
+.note_item__details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
 .note-item.completed .title {
   text-decoration: line-through;
 }
