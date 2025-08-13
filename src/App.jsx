@@ -6,14 +6,27 @@ import NoteStatus from "./components/NoteStatus";
 import NoteHeader from "./components/NoteHeader";
 
 function App() {
-  // state uplifting from AddNewNote component
+  //! States
   const [notes, setNotes] = useState([]);
-  const handleAddNote = (newNote) => setNotes([...notes, newNote]);
-
-  // state uplifting from NoteHeader
   const [sortBy, setSortBy] = useState("");
 
-  // sorting the notes
+  //! Handlers
+  const handleAddNote = (newNote) => setNotes([...notes, newNote]);
+
+  const handleDeleteNote = (id) => {
+    setNotes(notes.filter((n) => n.id !== id));
+  };
+
+  const handleCompleteNote = (e) => {
+    const noteId = Number(e.target.value);
+    setNotes((prevNotes) =>
+      prevNotes.map((note) =>
+        note.id === noteId ? { ...note, isCompleted: !note.isCompleted } : note
+      )
+    );
+  };
+
+  // Return notes; sorted according to the current sort option
   const getSortedNotes = () => {
     switch (sortBy) {
       case "earliest":
@@ -31,21 +44,6 @@ function App() {
       default:
         return notes;
     }
-  };
-
-  // deleting notes
-  const handleDeleteNote = (id) => {
-    setNotes(notes.filter((n) => n.id !== id));
-  };
-
-  // setting notes to "Completed"
-  const handleCompleteNote = (e) => {
-    const noteId = Number(e.target.value);
-    setNotes((prevNotes) =>
-      prevNotes.map((note) =>
-        note.id === noteId ? { ...note, isCompleted: !note.isCompleted } : note
-      )
-    );
   };
 
   return (
