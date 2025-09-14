@@ -3,7 +3,8 @@ function NoteStatus({ notes }) {
   const countCompletedNotes = notes.filter((note) => note.isCompleted).length;
   const countPendingNotes = countAllNotes - countCompletedNotes;
 
-  if (!countAllNotes) return <h2>You haven’t added any notes.</h2>;
+  if (!countAllNotes)
+    return <h2>Your notes will show up here. Add your first note!</h2>;
 
   return (
     <ul className="note-status">
