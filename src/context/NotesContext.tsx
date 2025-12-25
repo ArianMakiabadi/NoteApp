@@ -1,12 +1,6 @@
 import { createContext, ReactNode, useContext, useReducer } from "react";
+import { Note } from "../types/Note";
 
-type Note = {
-  id: number; //Date.now()
-  title: string;
-  description: string;
-  isCompleted: boolean;
-  createdAt: string;
-};
 type NotesProviderProps = {
   children: ReactNode;
 };
