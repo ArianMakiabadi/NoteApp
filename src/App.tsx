@@ -1,25 +1,18 @@
 import "./App.css";
-import AddNewNote from "./components/AddNewNote";
 import { useState } from "react";
-import NoteList from "./components/NoteList";
-import NoteStatus from "./components/NoteStatus";
 import NoteHeader from "./components/NoteHeader";
 import { NotesProvider } from "./context/NotesContext";
+import { SortByType } from "./types/SortBy";
+import NoteApp from "./components/NoteApp";
 
 function App() {
-  const [sortBy, setSortBy] = useState("");
+  const [sortBy, setSortBy] = useState<SortByType>("latest");
 
   return (
     <NotesProvider>
       <div className="container">
-        <NoteHeader onSort={(e) => setSortBy(e.target.value)} sortBy={sortBy} />
-        <div className="note-app">
-          <AddNewNote />
-          <div className="note-container">
-            <NoteStatus />
-            <NoteList sortBy={sortBy} />
-          </div>
-        </div>
+        <NoteHeader onSort={(value) => setSortBy(value)} sortBy={sortBy} />
+        <NoteApp sortBy={sortBy} />
       </div>
     </NotesProvider>
   );

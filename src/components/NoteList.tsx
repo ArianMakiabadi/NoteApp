@@ -1,43 +1,46 @@
 import { useNotes, useNotesDispatch } from "../context/NotesContext";
+import { Note } from "../types/Note";
+import { SortByType } from "../types/SortBy";
 
-function NoteList({ sortBy, onDelete, onComplete }) {
+type NoteListProps = {
+  sortBy: SortByType;
+};
+
+const NoteList: React.FC<NoteListProps> = ({ sortBy }) => {
   const notes = useNotes();
 
   // Return notes; sorted according to the current sort option
   let sortedNotes = notes;
   if (sortBy === "earliest")
     sortedNotes = [...notes].sort(
-      (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+      (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
     ); // a -b  => a > b ? 1 : -1
 
   if (sortBy === "latest")
     sortedNotes = [...notes].sort(
-      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     ); // b -a  => a > b ? -1 : 1
 
   if (sortBy === "completed")
     sortedNotes = [...notes].sort(
-      (a, b) => Number(a.completed) - Number(b.completed)
+      (a, b) => Number(a.isCompleted) - Number(b.isCompleted)
     );
 
   return (
     <div className="note-list">
       {sortedNotes.map((note) => (
-        <NoteItem
-          key={note.id}
-          note={note}
-          onDelete={onDelete}
-          onComplete={onComplete}
-        />
+        <NoteItem key={note.id} note={note} />
       ))}
     </div>
   );
-}
+};
 
 export default NoteList;
 
-function NoteItem({ note }) {
-  const options = {
+const NoteItem: React.FC<{ note: Note }> = ({ note }) => {
+  const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -74,4 +77,4 @@ function NoteItem({ note }) {
       </div>
     </div>
   );
-}
+};
