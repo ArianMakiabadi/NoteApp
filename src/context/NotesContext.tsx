@@ -1,8 +1,21 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, ReactNode, useContext, useReducer } from "react";
+import { Note } from "../types/Note";
 
-const NotesContext = createContext(null);
-const NotesDispatchContext = createContext(null);
-function notesReducer(notes, { type, payload }) {
+type NotesProviderProps = {
+  children: ReactNode;
+};
+
+type Action =
+  | { type: "add"; payload: Note }
+  | { type: "delete"; payload: number }
+  | { type: "complete"; payload: number };
+
+type NotesContextType = Note[];
+type NotesDispatchContextType = React.Dispatch<Action>;
+
+const NotesContext = createContext({} as NotesContextType);
+const NotesDispatchContext = createContext({} as NotesDispatchContextType);
+function notesReducer(notes: Note[], { type, payload }: Action) {
   switch (type) {
     case "add": {
       return [...notes, payload];
@@ -20,7 +33,7 @@ function notesReducer(notes, { type, payload }) {
   }
 }
 
-export function NotesProvider({ children }) {
+export function NotesProvider({ children }: NotesProviderProps) {
   const [notes, dispatch] = useReducer(notesReducer, []);
 
   return (
