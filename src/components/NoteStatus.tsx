@@ -1,6 +1,7 @@
+import React from "react";
 import { useNotes } from "../context/NotesContext";
 
-function NoteStatus() {
+const NoteStatus: React.FC = () => {
   const notes = useNotes();
   const countAllNotes = notes.length;
   const countCompletedNotes = notes.filter((note) => note.isCompleted).length;
@@ -22,6 +23,6 @@ function NoteStatus() {
       </li>
     </ul>
   );
-}
+};
 
 export default NoteStatus;

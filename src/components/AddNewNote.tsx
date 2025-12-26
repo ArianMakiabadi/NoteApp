@@ -1,12 +1,12 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNotesDispatch } from "../context/NotesContext";
 
-function AddNewNote() {
+const AddNewNote: React.FC = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const dispatch = useNotesDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const newNote = {
@@ -44,6 +44,6 @@ function AddNewNote() {
       </form>
     </div>
   );
-}
+};
 
 export default AddNewNote;
